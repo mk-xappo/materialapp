@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import materialapp.xappo.de.materialapp.R;
+import de.xappo.materialapp.R;
 
 public class SubActivity extends ActionBarActivity {
 
