@@ -19,8 +19,7 @@
             android:layout_height="match_parent">
 
         </FrameLayout>
-        unlimited101
-        UJ-VdS-GDu5T8nSqfGDw
+
         <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="de.xappo.materialapp.NavigationDrawerFragment"
