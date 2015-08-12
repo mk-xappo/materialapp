@@ -1,21 +1,38 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<org.lucasr.dspec.DesignSpecFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DADADA"
-    tools:context="de.xappo.materialapp.NavigationDrawerFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:background="#FB8C00"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="#DADADA"
+        tools:context="de.xappo.materialapp.NavigationDrawerFragment">
 
-    <ImageView
-        android:layout_marginTop="@dimen/drawer_margin_top"
-        android:layout_width="280dp"
-        android:layout_height="140dp"
-        android:src="@drawable/ic_abstract"
-        android:layout_marginBottom="16dp"
-        />
-    </LinearLayout>
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/containerDrawerImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FB8C00">
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_height="140dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="@dimen/drawer_margin_top"
+                android:src="@drawable/ic_abstract" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/drawerList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/containerDrawerImage">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
+
+</org.lucasr.dspec.DesignSpecFrameLayout>
