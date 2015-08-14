@@ -12,9 +12,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ import de.xappo.materialapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment implements VivzAdapter.ClickListener {
+public class NavigationDrawerFragment extends Fragment{
 
     private RecyclerView recyclerView;
     public static final String PREF_FILE_NAME = "testpres";
@@ -62,9 +65,19 @@ public class NavigationDrawerFragment extends Fragment implements VivzAdapter.Cl
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         adapter = new VivzAdapter(getActivity(), getData());
-        adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getActivity(), "onClick " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(getActivity(), "onLongClick " + position, Toast.LENGTH_SHORT).show();
+            }
+        }));
         return layout;
     }
 
@@ -137,8 +150,54 @@ public class NavigationDrawerFragment extends Fragment implements VivzAdapter.Cl
     }
 
 
-    @Override
-    public void itemClicked(View view, int position) {
-        startActivity(new Intent(getActivity(), SubActivity.class));
+    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    Log.d("VIVZ", "onSingleTapUp " + e);
+                    return true;
+                    //return super.onSingleTapUp(e);
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+                    Log.d("VIVZ", "onLongPress" + e);
+                }
+            });
+            Log.d("VIVZ", "construtcor invoked");
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            Log.d("VIVZ", "onTouchEvent " + e);
+        }
     }
+
+    public static interface ClickListener {
+        public void onClick(View view, int position);
+        public void onLongClick(View view, int position);
+
+
+    }
+
+
 }

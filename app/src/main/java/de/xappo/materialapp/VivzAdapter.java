@@ -22,7 +22,6 @@ public class VivzAdapter extends RecyclerView.Adapter<VivzAdapter.MyViewHolder> 
     List<Information> data = Collections.emptyList();
     private LayoutInflater inflater;
     private Context context;
-    private ClickListener clickListener;
 
 
     public VivzAdapter(Context context, List<Information> data) {
@@ -54,16 +53,13 @@ public class VivzAdapter extends RecyclerView.Adapter<VivzAdapter.MyViewHolder> 
         holder.icon.setImageResource(currentData.iconId);
     }
 
-    public void setClickListener(ClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
         ImageView icon;
@@ -72,20 +68,8 @@ public class VivzAdapter extends RecyclerView.Adapter<VivzAdapter.MyViewHolder> 
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.listText);
             icon = (ImageView) itemView.findViewById(R.id.listIcon);
-            icon.setOnClickListener(this);
         }
 
-
-        @Override
-        public void onClick(View v) {
-
-            if (clickListener != null) {
-                clickListener.itemClicked(v, getPosition());
-            }
-        }
     }
 
-    public interface ClickListener {
-        public void itemClicked(View view, int position);
-    }
 }

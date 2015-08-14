@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.xappo.materialapp">
+    
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,8 +20,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.xappo.materialapp.SubActivity"
-            android:label="@string/title_activity_sub"
+        android:name="de.xappo.materialapp.SubActivity"
+        android:label="@string/title_activity_sub"
+        android:parentActivityName="de.xappo.materialapp.MainActivity">
+
+    </activity>
+        <activity
+            android:name="de.xappo.materialapp.tabs.ActivityUsingTabLibrary"
+            android:label="@string/title_activity_using_tab_library"
             android:parentActivityName="de.xappo.materialapp.MainActivity">
 
         </activity>

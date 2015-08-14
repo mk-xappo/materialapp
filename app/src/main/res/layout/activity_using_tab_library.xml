@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="materialtest.vivz.slidenerd.activities.ActivityMain">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <it.neokree.materialtabs.MaterialTabHost
+        android:id="@+id/materialTabHost"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/app_bar"
+        app:iconColor="@android:color/white"
+        app:accentColor="@color/colorAccent"
+        app:primaryColor="@color/colorPrimary"
+        app:textColor="@android:color/white"
+        app:hasIcons="true"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/materialTabHost"
+        android:layout_weight="1"
+        >
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

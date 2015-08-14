@@ -5,19 +5,13 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorHighlight</item>
         <item name="android:windowBackground">@android:color/white</item>
     </style>
-<!--
-    <style name="MyCustomToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Light">
-        <item name="android:textColorPrimary">#F00</item>
-        <item name="android:textColorSecondary">#00F</item>
 
-    </style>
--->
 
 </resources>
+
