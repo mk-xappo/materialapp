@@ -11,6 +11,7 @@
     <string name="drawer_close">Close</string>
     <string name="action_tabs_using_library">SlidingTabLayoutExample</string>
     <string name="title_activity_using_tab_library">ActivityUsingTabLibrary</string>
+    <string name="action_vector_test">VectorTestActivity</string>
     <string-array name="tabs">
         <item>TAB 1</item>
         <item>TAB 2</item>
@@ -19,5 +20,6 @@
         <item>TAB 5</item>
         <item>TAB 6</item>
     </string-array>
+    <string name="title_activity_vector_test">VectorTestActivity</string>
 
 </resources>

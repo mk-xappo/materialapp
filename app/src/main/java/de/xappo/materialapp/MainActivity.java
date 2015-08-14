@@ -90,6 +90,11 @@ public class MainActivity extends ActionBarActivity {
             startActivity(new Intent(this, ActivityUsingTabLibrary.class));
         }
 
+        if (R.id.action_vector_test == id) {
+            startActivity(new Intent(this, VectorTestActivity.class));
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 

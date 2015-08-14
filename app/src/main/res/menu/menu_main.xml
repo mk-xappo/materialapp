@@ -18,4 +18,9 @@
         android:orderInCategory="300"
         android:title="@string/action_tabs_using_library"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_vector_test"
+        android:orderInCategory="400"
+        android:title="@string/action_vector_test"
+        app:showAsAction="never" />
 </menu>
