@@ -1,5 +1,7 @@
 package de.xappo.materialapp;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +18,7 @@ public class VectorTestActivity extends ActionBarActivity {
     Toolbar toolbar;
     ImageView imageView;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +27,22 @@ public class VectorTestActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         imageView = (ImageView) findViewById(R.id.vectorImage);
 
-        Drawable drawable = MrVector.inflate(getResources(), R.drawable.vector_android);
-        if (Build.VERSION.SDK_INT >= 16) {
+//        Drawable drawable = MrVector.inflate(getResources(), R.drawable.vector_android);
+        Drawable drawable = null;
+        if (Util.isLollipopOrGreater()) {
+            drawable = MrVector.inflate(getResources(), R.drawable.animator_vector_clock);
+        } else {
+            drawable = MrVector.inflate(getResources(), R.drawable.vector_clock);
+        }
+
+        if (Util.isJellyBeanOrGreater()) {
             imageView.setBackground(drawable);
         } else {
             imageView.setBackgroundDrawable(drawable);
+        }
+
+        if (drawable instanceof Animatable) {
+            ((Animatable) drawable).start();
         }
     }
 
