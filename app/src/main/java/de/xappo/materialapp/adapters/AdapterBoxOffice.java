@@ -12,9 +12,13 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.xappo.materialapp.R;
+import de.xappo.materialapp.extras.Constants;
 import de.xappo.materialapp.network.VolleySingleton;
 import de.xappo.materialapp.pojo.Movie;
 
@@ -27,6 +31,7 @@ public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.View
     private LayoutInflater layoutInflater;
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
+    private DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
 
     public AdapterBoxOffice(Context context) {
@@ -53,10 +58,30 @@ public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.View
     public void onBindViewHolder(final ViewHolderBoxOffice holder, int position) {
         Movie currentMovie = listMovies.get(position);
         holder.movieTitle.setText(currentMovie.getTitle());
-        holder.movieReleaseDate.setText(currentMovie.getReleaseDateTheater().toString());
-        holder.movieAudienceScore.setRating(currentMovie.getAudienceScore() / 20.0F);
+        Date movieReleaseDate = currentMovie.getReleaseDateTheater();
+        if (movieReleaseDate != null) {
+            String formattedDate = dateFormatter.format(movieReleaseDate);
+            holder.movieReleaseDate.setText(formattedDate);
+        } else {
+            holder.movieReleaseDate.setText(Constants.NA);
+        }
+
+        int audienceScore = currentMovie.getAudienceScore();
+        if (audienceScore == -1) {
+            holder.movieAudienceScore.setRating(0.0F);
+            holder.movieAudienceScore.setAlpha(0.5F);
+        } else {
+            holder.movieAudienceScore.setRating(currentMovie.getAudienceScore() / 20.0F);
+        }
+
+
         String urlThumbnail = currentMovie.getUrlThumbnail();
-        if (urlThumbnail != null) {
+        loadImages(urlThumbnail, holder);
+
+    }
+
+    private void loadImages(String urlThumbnail, final ViewHolderBoxOffice holder) {
+        if (!urlThumbnail.equals(Constants.NA)) {
             imageLoader.get(urlThumbnail, new ImageLoader.ImageListener() {
                 @Override
                 public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -69,7 +94,6 @@ public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.View
                 }
             });
         }
-
     }
 
     @Override

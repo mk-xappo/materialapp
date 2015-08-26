@@ -29,6 +29,7 @@ import java.util.Date;
 
 import de.xappo.materialapp.R;
 import de.xappo.materialapp.adapters.AdapterBoxOffice;
+import de.xappo.materialapp.extras.Constants;
 import de.xappo.materialapp.logging.L;
 import de.xappo.materialapp.materialapp.MyApplication;
 import de.xappo.materialapp.network.VolleySingleton;
@@ -134,56 +135,75 @@ public class FragmentBoxOffice extends Fragment {
         ArrayList<Movie> listMovies = new ArrayList<Movie>();
 
         Log.i(getClass().getName(), "parseJsonResponse() response: " + response.toString());
-        if (response == null || response.length() == 0) {
-            return listMovies;
-        }
-        try {
-            StringBuilder data = new StringBuilder();
-            JSONArray arrayMovies = response.getJSONArray(KEY_MOVIES);
-            for (int i = 0; i < arrayMovies.length(); i++) {
-                JSONObject currentMovie = arrayMovies.getJSONObject(i);
-                long id = currentMovie.getLong(KEY_ID);
-                String title = currentMovie.getString(KEY_TITLE);
-                JSONObject objectReleaseDates = currentMovie.getJSONObject(KEY_RELEASE_DATES);
-                String releaseDate = null;
-                if (objectReleaseDates.has(KEY_THEATER)) {
-                    releaseDate = objectReleaseDates.getString(KEY_THEATER);
-                } else {
-                    releaseDate ="NA";
-                }
-                JSONObject objectRatings = currentMovie.getJSONObject(KEY_RATINGS);
-                int audienceScore = -1;
-                if (objectRatings.has(KEY_AUDIENCE_SCORE)) {
-                    audienceScore = objectRatings.getInt(KEY_AUDIENCE_SCORE);
-                }
-                String synopsis = currentMovie.getString(KEY_SYNOPSIS);
-                JSONObject objectPosters = currentMovie.getJSONObject(KEY_POSTERS);
-                String urlThumbnail = null;
-                if (objectPosters.has(KEY_THUMBNAIL)) {
-                    urlThumbnail = objectPosters.getString(KEY_THUMBNAIL);
-                }
-                Movie movie = new Movie();
-                movie.setId(id);
-                movie.setTitle(title);
-                Date date = dateFormat.parse(releaseDate);
-                movie.setReleaseDateTheater(date);
-                movie.setAudienceScore(audienceScore);
-                movie.setSynopsis(synopsis);
-                movie.setUrlThumbnail(urlThumbnail);
 
-                Log.i(getClass().getName(), "parseJsonResponse movie: " + movie.toString());
 
-                listMovies.add(movie);
+        if (response != null && response.length() > 0) {
+            long id = 0;
+            String title = Constants.NA;
+            String releaseDate = Constants.NA;
+            int audienceScore = -1;
+            String synopsis = Constants.NA;
+            String urlThumbnail = Constants.NA;
+            try {
+                StringBuilder data = new StringBuilder();
+                JSONArray arrayMovies = response.getJSONArray(KEY_MOVIES);
+                for (int i = 0; i < arrayMovies.length(); i++) {
+                    JSONObject currentMovie = arrayMovies.getJSONObject(i);
+                    if (currentMovie.has(KEY_ID) && !currentMovie.isNull(KEY_ID)) {
+                        id = currentMovie.getLong(KEY_ID);
+                    }
 
+                    if (currentMovie.has(KEY_TITLE) && !currentMovie.isNull(KEY_TITLE)) {
+                        title = currentMovie.getString(KEY_TITLE);
+                    }
+
+
+                    if (currentMovie.has(KEY_RELEASE_DATES) && !currentMovie.isNull(KEY_RELEASE_DATES)) {
+                        JSONObject objectReleaseDates = currentMovie.getJSONObject(KEY_RELEASE_DATES);
+                        if (objectReleaseDates != null
+                        && objectReleaseDates.has(KEY_THEATER)
+                                && !objectReleaseDates.isNull(KEY_THEATER)) {
+                            releaseDate = objectReleaseDates.getString(KEY_THEATER);
+                        }
+                    }
+                    JSONObject objectRatings = currentMovie.getJSONObject(KEY_RATINGS);
+                    if (objectRatings.has(KEY_AUDIENCE_SCORE) && !objectRatings.isNull(KEY_AUDIENCE_SCORE)) {
+                        audienceScore = objectRatings.getInt(KEY_AUDIENCE_SCORE);
+                    }
+                    if (currentMovie.has(KEY_SYNOPSIS) && !currentMovie.isNull(KEY_SYNOPSIS)) {
+                        synopsis = currentMovie.getString(KEY_SYNOPSIS);
+                    }
+                    if (currentMovie.has(KEY_POSTERS) && !currentMovie.isNull(KEY_POSTERS)) { {
+                        JSONObject objectPosters = currentMovie.getJSONObject(KEY_POSTERS);
+                        if (objectPosters != null
+                                && objectPosters.has(KEY_THUMBNAIL)
+                                && !objectPosters.isNull(KEY_THUMBNAIL)) {
+                            urlThumbnail = objectPosters.getString(KEY_THUMBNAIL);
+                        }
+                    }}
+
+                    Movie movie = new Movie();
+                    movie.setId(id);
+                    movie.setTitle(title);
+                    Date date = null;
+                    try {
+                        date = dateFormat.parse(releaseDate);
+                    } catch (ParseException e) {}
+                    movie.setReleaseDateTheater(date);
+                    movie.setAudienceScore(audienceScore);
+                    movie.setSynopsis(synopsis);
+                    movie.setUrlThumbnail(urlThumbnail);
+                    Log.i(getClass().getName(), "parseJsonResponse movie: " + movie.toString());
+
+                    if (id != -1 && !title.equals(Constants.NA)) {
+                        listMovies.add(movie);
+                    }
+                }
+                Log.i(getClass().getName(), "parseJsonResponse listMoviews: " + listMovies.toString());
+
+            } catch (JSONException e) {
 
             }
-            L.T(getActivity(), listMovies.toString());
-            Log.i(getClass().getName(), "parseJsonResponse listMoviews: " + listMovies.toString());
-
-        } catch (JSONException e) {
-
-        } catch (ParseException e) {
-
         }
         return listMovies;
     }

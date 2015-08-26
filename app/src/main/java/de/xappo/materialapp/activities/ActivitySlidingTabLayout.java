@@ -16,8 +16,12 @@ import android.view.MenuItem;
 
 import com.telly.mrvector.MrVector;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import de.xappo.materialapp.R;
 import de.xappo.materialapp.fragments.FragmentDummy;
+import de.xappo.materialapp.logging.L;
 import de.xappo.materialapp.views.SlidingTabLayout;
 
 
@@ -33,6 +37,7 @@ public class ActivitySlidingTabLayout extends ActionBarActivity {
         setContentView(R.layout.activity_using_tab_library);
         setupToolbar();
         setupTabs();
+        testJsonObject();
     }
 
     private void setupToolbar() {
@@ -52,6 +57,17 @@ public class ActivitySlidingTabLayout extends ActionBarActivity {
         //color of the tab indicator
         mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
         mTabs.setViewPager(mPager);
+    }
+
+    public void testJsonObject() {
+        try {
+            JSONObject jsonObject = new JSONObject("{\"hello\":\"null\",\"world\":null}");
+
+            boolean status = jsonObject.has("data");
+            L.t(this, status+"");
+        } catch (JSONException e) {
+            L.t(this, e+"");
+        }
     }
 
 
@@ -94,7 +110,6 @@ public class ActivitySlidingTabLayout extends ActionBarActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-
             //use the MrVector library to inflate vector drawable inside tab
             Drawable drawable = MrVector.inflate(getResources(), R.drawable.vector_android);
             //set the size of drawable to 36 pixels
