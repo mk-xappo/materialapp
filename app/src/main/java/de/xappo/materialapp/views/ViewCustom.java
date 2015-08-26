@@ -1,4 +1,4 @@
-package de.xappo.materialapp;
+package de.xappo.materialapp.views;
 
 import android.content.Context;
 import android.graphics.Paint;

@@ -3,5 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="materialtest.vivz.slidenerd.activities.ActivitySlidingTabLayout">
     <item android:id="@+id/action_settings" android:orderInCategory="100"
-        android:title="@string/action_settings" app:showAsAction="never" />
+        android:title="@string/title_activity_using_tab_library" app:showAsAction="never" />
 </menu>

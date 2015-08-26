@@ -1,4 +1,4 @@
-package de.xappo.materialapp.tabs;
+package de.xappo.materialapp.views;
 
 import android.R;
 import android.content.Context;

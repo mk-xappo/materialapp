@@ -10,26 +10,16 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <it.neokree.materialtabs.MaterialTabHost
-        android:id="@+id/materialTabHost"
+    <de.xappo.materialapp.views.SlidingTabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/app_bar"
-        app:iconColor="@android:color/white"
-        app:accentColor="@color/colorAccent"
-        app:primaryColor="@color/colorPrimary"
-        app:textColor="@android:color/white"
-        app:hasIcons="true"
-        />
+        android:layout_height="wrap_content" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@+id/materialTabHost"
-        android:layout_weight="1"
-        >
+        android:layout_weight="1" />
 
-    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

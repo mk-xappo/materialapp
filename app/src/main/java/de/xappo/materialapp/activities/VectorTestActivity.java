@@ -1,9 +1,8 @@
-package de.xappo.materialapp;
+package de.xappo.materialapp.activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.telly.mrvector.MrVector;
+
+import de.xappo.materialapp.R;
+import de.xappo.materialapp.extras.Util;
 
 public class VectorTestActivity extends ActionBarActivity {
 

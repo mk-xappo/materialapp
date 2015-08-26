@@ -7,7 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-import de.xappo.materialapp.MyApplication;
+import de.xappo.materialapp.materialapp.MyApplication;
 
 /**
  * Created by knoppik on 14.08.2015.
@@ -36,14 +36,14 @@ public class VolleySingleton {
         });
     }
 
-    public static VolleySingleton getIntance() {
+    public static VolleySingleton getInstance() {
         if (sIntance == null) {
             sIntance = new VolleySingleton();
         }
         return sIntance;
     }
 
-    public RequestQueue getmRequestQueue() {
+    public RequestQueue getRequestQueue() {
         return mRequestQueue;
     }
 

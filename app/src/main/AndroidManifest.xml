@@ -5,13 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".materialapp.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,17 +20,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SubActivity"
+            android:name=".activities.SubActivity"
             android:label="@string/title_activity_sub"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".activities.MainActivity" >
         </activity>
         <activity
-            android:name=".tabs.ActivityUsingTabLibrary"
+            android:name=".activities.ActivitySlidingTabLayout"
             android:label="@string/title_activity_using_tab_library"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".activities.MainActivity" >
         </activity>
         <activity
-            android:name=".VectorTestActivity"
+            android:name=".activities.VectorTestActivity"
             android:label="@string/title_activity_vector_test"
             android:parentActivityName="android.support.v7.app.ActionBarActivity" >
             <meta-data

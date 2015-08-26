@@ -1,4 +1,4 @@
-package de.xappo.materialapp;
+package de.xappo.materialapp.extras;
 
 import android.os.Build;
 

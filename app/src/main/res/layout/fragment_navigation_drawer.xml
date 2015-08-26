@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#DADADA"
-        tools:context="de.xappo.materialapp.NavigationDrawerFragment">
+        tools:context="de.xappo.materialapp.fragments.NavigationDrawerFragment">
 
         <LinearLayout
             android:id="@+id/containerDrawerImage"

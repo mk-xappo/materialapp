@@ -1,4 +1,4 @@
-<de.xappo.materialapp.LayoutCustom xmlns:android="http://schemas.android.com/apk/res/android"
+<de.xappo.materialapp.views.LayoutCustom xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +18,7 @@
 
 
 
-    <de.xappo.materialapp.ViewCustom
+    <de.xappo.materialapp.views.ViewCustom
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,4 +28,4 @@
         android:textColor="@android:color/black" />
 
 
-</de.xappo.materialapp.LayoutCustom>
+</de.xappo.materialapp.views.LayoutCustom>

@@ -22,7 +22,7 @@
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"
-            android:name="de.xappo.materialapp.NavigationDrawerFragment"
+            android:name="de.xappo.materialapp.fragments.NavigationDrawerFragment"
             android:layout_width="@dimen/nav_drawer_width"
             android:layout_height="match_parent"
             android:layout_gravity="start"

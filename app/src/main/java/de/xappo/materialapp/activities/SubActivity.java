@@ -1,4 +1,4 @@
-package de.xappo.materialapp;
+package de.xappo.materialapp.activities;
 
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;

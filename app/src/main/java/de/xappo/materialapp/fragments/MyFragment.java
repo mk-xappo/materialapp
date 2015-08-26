@@ -1,6 +1,5 @@
-package de.xappo.materialapp;
+package de.xappo.materialapp.fragments;
 
-import android.app.DownloadManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,8 +14,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
+import de.xappo.materialapp.R;
 import de.xappo.materialapp.network.VolleySingleton;
 
 public class MyFragment extends Fragment {
@@ -39,7 +38,7 @@ public class MyFragment extends Fragment {
             textView.setText("The Page selected is " + bundle.getInt("position"));
         }
 
-        RequestQueue requestQueue = VolleySingleton.getIntance().getmRequestQueue();
+        RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
         String url = "http://php.net/";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
