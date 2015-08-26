@@ -15,6 +15,11 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import de.xappo.materialapp.fragments.FragmentBoxOffice;
 import de.xappo.materialapp.fragments.FragmentSearch;
@@ -66,7 +71,29 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         for (int i = 0; i < adapter.getCount(); i++) {
             tabHost.addTab(tabHost.newTab().setIcon(adapter.getIcon(i)).setTabListener(this));
         }
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.ic_launcher);
 
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this).setContentView(imageView).build();
+
+        ImageView iconSortName = new ImageView(this);
+        iconSortName.setImageResource(R.drawable.ic_action_home);
+        ImageView iconSortDate = new ImageView(this);
+        iconSortDate.setImageResource(R.drawable.ic_action_articles);
+        ImageView iconSortRatings = new ImageView(this);
+        iconSortRatings.setImageResource(R.drawable.ic_action_personal);
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+
+        SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
+        SubActionButton buttonSortDate = itemBuilder.setContentView(iconSortDate).build();
+        SubActionButton buttonSortRatings = itemBuilder.setContentView(iconSortRatings).build();
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(buttonSortName)
+                .addSubActionView(buttonSortDate)
+                .addSubActionView(buttonSortRatings)
+                .attachTo(actionButton)
+                .build();
     }
 
     @Override
