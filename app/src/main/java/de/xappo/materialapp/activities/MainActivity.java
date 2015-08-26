@@ -15,31 +15,41 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import de.xappo.materialapp.extras.SortListener;
 import de.xappo.materialapp.fragments.FragmentBoxOffice;
 import de.xappo.materialapp.fragments.FragmentSearch;
 import de.xappo.materialapp.fragments.FragmentUpcomming;
 import de.xappo.materialapp.fragments.NavigationDrawerFragment;
 import de.xappo.materialapp.R;
+import de.xappo.materialapp.logging.L;
 import de.xappo.materialapp.views.SlidingTabLayout;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
-public class MainActivity extends ActionBarActivity implements MaterialTabListener {
+public class MainActivity extends ActionBarActivity implements MaterialTabListener, View.OnClickListener {
 
     private Toolbar toolbar;
     private SlidingTabLayout mTabs;
     private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
 
     public static final int MOVIES_SEARCH_RESULTS = 0;
     public static final int MOVIES_HITS = 1;
     public static final int MOVIES_UPCOMING = 2;
+    public static final int TAB_COUNT = 3;
+    public static final String TAG_SORT_NAME = "sortName";
+    public static final String TAG_SORT_DATE = "sortDate";
+    public static final String TAG_SORT_RATINGS = "sortRatings";
+
+
     private MaterialTabHost tabHost;
 
     @Override
@@ -58,7 +68,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         tabHost = (MaterialTabHost) findViewById(R.id.materialTabHost);
         viewPager = (ViewPager) findViewById(R.id.pager);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -71,22 +81,38 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         for (int i = 0; i < adapter.getCount(); i++) {
             tabHost.addTab(tabHost.newTab().setIcon(adapter.getIcon(i)).setTabListener(this));
         }
-        ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.ic_launcher);
+        buildFAB();
+    }
 
-        FloatingActionButton actionButton = new FloatingActionButton.Builder(this).setContentView(imageView).build();
+    private void buildFAB() {
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.ic_action_new);
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(imageView)
+                .setBackgroundDrawable(R.drawable.selector_button_red)
+                .build();
 
         ImageView iconSortName = new ImageView(this);
-        iconSortName.setImageResource(R.drawable.ic_action_home);
+        iconSortName.setImageResource(R.drawable.ic_action_alphabets);
         ImageView iconSortDate = new ImageView(this);
-        iconSortDate.setImageResource(R.drawable.ic_action_articles);
+        iconSortDate.setImageResource(R.drawable.ic_action_calendar);
         ImageView iconSortRatings = new ImageView(this);
-        iconSortRatings.setImageResource(R.drawable.ic_action_personal);
+        iconSortRatings.setImageResource(R.drawable.ic_action_important);
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.selector_sub_button_gray));
 
         SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
         SubActionButton buttonSortDate = itemBuilder.setContentView(iconSortDate).build();
         SubActionButton buttonSortRatings = itemBuilder.setContentView(iconSortRatings).build();
+
+        buttonSortName.setTag(TAG_SORT_NAME);
+        buttonSortDate.setTag(TAG_SORT_DATE);
+        buttonSortRatings.setTag(TAG_SORT_RATINGS);
+
+        buttonSortName.setOnClickListener(this);
+        buttonSortDate.setOnClickListener(this);
+        buttonSortRatings.setOnClickListener(this);
 
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(buttonSortName)
@@ -146,6 +172,22 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Fragment fragment = (Fragment) adapter.instantiateItem(viewPager, viewPager.getCurrentItem());
+        if (fragment instanceof SortListener) {
+            if (v.getTag().equals(TAG_SORT_NAME)) {
+                ((SortListener) fragment).onSortByName();
+            }
+            if (v.getTag().equals(TAG_SORT_DATE)) {
+                ((SortListener) fragment).onSortByDate();
+            }
+            if (v.getTag().equals(TAG_SORT_RATINGS)) {
+                ((SortListener) fragment).onSortByRatings();
+            }
+        }
+    }
+
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         int icons[] = {R.drawable.ic_action_home, R.drawable.ic_action_articles, R.drawable.ic_action_personal};
@@ -186,7 +228,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
         @Override
         public int getCount() {
-            return 3;
+            return TAB_COUNT;
         }
 
         private Drawable getIcon(int position) {

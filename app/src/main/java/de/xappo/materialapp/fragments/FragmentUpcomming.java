@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.xappo.materialapp.R;
+import de.xappo.materialapp.extras.SortListener;
+import de.xappo.materialapp.logging.L;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentUpcomming#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentUpcomming extends Fragment {
+public class FragmentUpcomming extends Fragment implements SortListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,4 +66,18 @@ public class FragmentUpcomming extends Fragment {
     }
 
 
+    @Override
+    public void onSortByName() {
+        L.t(getActivity(), "sort name upcoming");
+    }
+
+    @Override
+    public void onSortByDate() {
+        L.t(getActivity(), "sort date upcoming");
+    }
+
+    @Override
+    public void onSortByRatings() {
+        L.t(getActivity(), "sort ratings upcoming");
+    }
 }

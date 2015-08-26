@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.xappo.materialapp.R;
+import de.xappo.materialapp.extras.SortListener;
+import de.xappo.materialapp.logging.L;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentSearch#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends Fragment implements SortListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,4 +66,18 @@ public class FragmentSearch extends Fragment {
     }
 
 
+    @Override
+    public void onSortByName() {
+        L.t(getActivity(), "sort name search");
+    }
+
+    @Override
+    public void onSortByDate() {
+        L.t(getActivity(), "sort date search");
+    }
+
+    @Override
+    public void onSortByRatings() {
+        L.t(getActivity(), "sort ratings search");
+    }
 }

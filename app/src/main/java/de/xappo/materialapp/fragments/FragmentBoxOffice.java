@@ -37,6 +37,8 @@ import java.util.Date;
 import de.xappo.materialapp.R;
 import de.xappo.materialapp.adapters.AdapterBoxOffice;
 import de.xappo.materialapp.extras.Constants;
+import de.xappo.materialapp.extras.MovieSorter;
+import de.xappo.materialapp.extras.SortListener;
 import de.xappo.materialapp.logging.L;
 import de.xappo.materialapp.materialapp.MyApplication;
 import de.xappo.materialapp.network.VolleySingleton;
@@ -52,7 +54,7 @@ import static de.xappo.materialapp.extras.Keys.EndpointBoxOffice.*;
  * Use the {@link FragmentBoxOffice#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentBoxOffice extends Fragment {
+public class FragmentBoxOffice extends Fragment implements SortListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -72,6 +74,7 @@ public class FragmentBoxOffice extends Fragment {
 
     private AdapterBoxOffice adapterBoxOffice;
     private TextView textViewVolleyEror;
+    private MovieSorter movieSorter = new MovieSorter();
 
 
     /**
@@ -243,4 +246,21 @@ public class FragmentBoxOffice extends Fragment {
     }
 
 
+    @Override
+    public void onSortByName() {
+        movieSorter.sortMoviesByName(listMovies);
+        adapterBoxOffice.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSortByDate() {
+        movieSorter.sortMoviesByDate(listMovies);
+        adapterBoxOffice.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSortByRatings() {
+        movieSorter.sortMoviesByRatings(listMovies);
+        adapterBoxOffice.notifyDataSetChanged();
+    }
 }
